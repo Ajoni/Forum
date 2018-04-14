@@ -153,10 +153,10 @@
     <Compile Include="BL\UserBL.cs" />
     <Compile Include="Controllers\DiscussionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="DAL\DiscussionDAL.cs" />
-    <Compile Include="DAL\PostDAL.cs" />
-    <Compile Include="DAL\UserDAL.cs" />
+    <Compile Include="DAL\ForumContext.cs" />
+    <Compile Include="DAL\ForumInitializer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -212,6 +212,16 @@
     <Content Include="Views\Discussion\Details.cshtml" />
     <Content Include="Views\Discussion\Edit.cshtml" />
     <Content Include="Views\Discussion\Index.cshtml" />
+    <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\User\Delete.cshtml" />
+    <Content Include="Views\User\Details.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Post\Create.cshtml" />
+    <Content Include="Views\Post\Delete.cshtml" />
+    <Content Include="Views\Post\Details.cshtml" />
+    <Content Include="Views\Post\Edit.cshtml" />
+    <Content Include="Views\Post\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

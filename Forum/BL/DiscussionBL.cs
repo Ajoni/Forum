@@ -11,28 +11,28 @@ namespace Forum.BL
     {
         public List<Discussion> GetDiscussions()
         {
-            DiscussionDAL db = new DiscussionDAL();
+            ForumContext db = new ForumContext();
             return db.discussionDB.ToList();
         }
 
         public void AddDiscussion(Discussion u)
         {
-            DiscussionDAL db = new DiscussionDAL();
+            ForumContext db = new ForumContext();
             db.discussionDB.Add(u);
             db.SaveChanges();
         }
 
         public void DeleteDiscussion(Discussion u)
         {
-            DiscussionDAL db = new DiscussionDAL();
+            ForumContext db = new ForumContext();
             db.discussionDB.Remove(u);
             db.SaveChanges();
         }
 
         public void EditDiscussion(Discussion u)
         {
-            DiscussionDAL db = new DiscussionDAL();
-            db.Entry(db.discussionDB.SingleOrDefault(x => x.id == u.id)).CurrentValues.SetValues(u);
+            ForumContext db = new ForumContext();
+            db.Entry(db.discussionDB.SingleOrDefault(x => x.DiscussionId == u.DiscussionId)).CurrentValues.SetValues(u);
             db.SaveChanges();
         }
     }

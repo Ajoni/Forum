@@ -11,107 +11,116 @@ using Forum.Models;
 
 namespace Forum.Controllers
 {
-    public class UserController : Controller
+    public class PostController : Controller
     {
         private ForumContext db = new ForumContext();
 
-        // GET: User
+        // GET: Post
         public ActionResult Index()
         {
-            return View(db.userDB.ToList());
+            var postDB = db.postDB.Include(p => p.Discussions).Include(p => p.user);
+            return View(postDB.ToList());
         }
 
-        // GET: User/Details/5
+        // GET: Post/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.userDB.Find(id);
-            if (user == null)
+            Post post = db.postDB.Find(id);
+            if (post == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View(post);
         }
 
-        // GET: User/Create
+        // GET: Post/Create
         public ActionResult Create()
         {
+            ViewBag.DiscussionId = new SelectList(db.discussionDB, "DiscussionId", "Title");
+            ViewBag.PosterId = new SelectList(db.userDB, "id", "username");
             return View();
         }
 
-        // POST: User/Create
+        // POST: Post/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,username,pass,AboutMe,JoinedDate")] User user)
+        public ActionResult Create([Bind(Include = "id,Text,Posted,DiscussionId,PosterId")] Post post)
         {
             if (ModelState.IsValid)
             {
-                db.userDB.Add(user);
+                db.postDB.Add(post);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(user);
+            ViewBag.DiscussionId = new SelectList(db.discussionDB, "DiscussionId", "Title", post.DiscussionId);
+            ViewBag.PosterId = new SelectList(db.userDB, "id", "username", post.PosterId);
+            return View(post);
         }
 
-        // GET: User/Edit/5
+        // GET: Post/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.userDB.Find(id);
-            if (user == null)
+            Post post = db.postDB.Find(id);
+            if (post == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            ViewBag.DiscussionId = new SelectList(db.discussionDB, "DiscussionId", "Title", post.DiscussionId);
+            ViewBag.PosterId = new SelectList(db.userDB, "id", "username", post.PosterId);
+            return View(post);
         }
 
-        // POST: User/Edit/5
+        // POST: Post/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,username,pass,AboutMe,JoinedDate")] User user)
+        public ActionResult Edit([Bind(Include = "id,Text,Posted,DiscussionId,PosterId")] Post post)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
+                db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(user);
+            ViewBag.DiscussionId = new SelectList(db.discussionDB, "DiscussionId", "Title", post.DiscussionId);
+            ViewBag.PosterId = new SelectList(db.userDB, "id", "username", post.PosterId);
+            return View(post);
         }
 
-        // GET: User/Delete/5
+        // GET: Post/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.userDB.Find(id);
-            if (user == null)
+            Post post = db.postDB.Find(id);
+            if (post == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View(post);
         }
 
-        // POST: User/Delete/5
+        // POST: Post/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            User user = db.userDB.Find(id);
-            db.userDB.Remove(user);
+            Post post = db.postDB.Find(id);
+            db.postDB.Remove(post);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

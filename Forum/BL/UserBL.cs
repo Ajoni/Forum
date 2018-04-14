@@ -11,27 +11,27 @@ namespace Forum.BL
     {
         public List<User> GetUsers()
         {
-            UserDAL db = new UserDAL();
+            ForumContext db = new ForumContext();
             return db.userDB.ToList();
         }
 
         public void AddUser(User u)
         {
-            UserDAL db = new UserDAL();
+            ForumContext db = new ForumContext();
             db.userDB.Add(u);
             db.SaveChanges();
         }
 
         public void DeleteUser(User u)
         {
-            UserDAL db = new UserDAL();
+            ForumContext db = new ForumContext();
             db.userDB.Remove(u);
             db.SaveChanges();
         }
 
         public void EditUser(User u)
         {
-            UserDAL db = new UserDAL();
+            ForumContext db = new ForumContext();
             db.Entry(db.userDB.SingleOrDefault(x => x.id == u.id)).CurrentValues.SetValues(u);
             db.SaveChanges();
         }

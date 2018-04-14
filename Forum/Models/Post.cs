@@ -10,22 +10,28 @@ namespace Forum.Models
     public class Post
     {
         public string Text { get; set; }
-        [Display (Name = "OP" )]
-        public int PosterId { get; set; }
+        [Display (Name = "OP" )]        
         public DateTime Posted { get; private set; }
         [Key]
         public int id { get; set; }
+
+        [Display(Name ="Discussion")]
+        public int DiscussionId { get; set; }
         [Key]
-        [ForeignKey("Discussion")]
-        public int DiscNum { get; private set; }
+        [ForeignKey("DiscussionId")]
+        public virtual Discussion Discussions { get; set; }
+
+        public int PosterId { get; set; }
+        [Key]
+        [ForeignKey("PosterId")]
+        public virtual User user { get; set; }
 
         private Post() { }
-        public Post(string text, int poster, int n)
+        public Post(string text, int poster)
         {
             Text = text;
             PosterId = poster;
             Posted = DateTime.Now;
-            DiscNum = n;
         }
     }
 }
