@@ -11,21 +11,21 @@ namespace Forum.Models
     {
         public string Text { get; set; }
         [Display (Name = "OP" )]
-        public User Poster { get; set; }
+        public int PosterId { get; set; }
         public DateTime Posted { get; private set; }
         [Key]
-        public int PostNum { get; private set; }
+        public int id { get; set; }
         [Key]
         [ForeignKey("Discussion")]
         public int DiscNum { get; private set; }
 
         private Post() { }
-        public Post(string text, User u, int n)
+        public Post(string text, int poster, int n)
         {
             Text = text;
-            Poster = u;
+            PosterId = poster;
             Posted = DateTime.Now;
-            PostNum = n;
+            DiscNum = n;
         }
     }
 }

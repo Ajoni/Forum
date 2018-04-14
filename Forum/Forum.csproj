@@ -148,9 +148,14 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BL\DiscussionBL.cs" />
+    <Compile Include="BL\PostBL.cs" />
     <Compile Include="BL\UserBL.cs" />
+    <Compile Include="Controllers\DiscussionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\DiscussionDAL.cs" />
+    <Compile Include="DAL\PostDAL.cs" />
     <Compile Include="DAL\UserDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -202,6 +207,11 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Discussion\Create.cshtml" />
+    <Content Include="Views\Discussion\Delete.cshtml" />
+    <Content Include="Views\Discussion\Details.cshtml" />
+    <Content Include="Views\Discussion\Edit.cshtml" />
+    <Content Include="Views\Discussion\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

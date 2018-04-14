@@ -7,10 +7,9 @@ using System.Web;
 
 namespace Forum.DAL
 {
-    public class DiscussionDAL : DbContext
+    public class PostDAL : DbContext
     {
-        public DbSet<Discussion> discussionDB { get; set; }
-        public DiscussionDAL() : base("ForumDB") { }
+        public DbSet<Post> postDB { get; set; }
+        public PostDAL() : base("ForumDB") { }
     }
-
 }

@@ -8,8 +8,18 @@ namespace Forum.Models
 {
     public class Discussion
     {
-        public List<Post> Posts { get; set; }
         [Key]
-        public int num { get; private set; }
+        public int id { get; set; }
+        public DateTime Posted { get; private set; }
+        public string Title { get; set; }
+        public string Text { get; set; }
+
+        private Discussion() { }
+        public Discussion(string title, string text)
+        {
+            Title = title;
+            Text = text;
+            Posted = DateTime.Now;
+        }
     }
 }
