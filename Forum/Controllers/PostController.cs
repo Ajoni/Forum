@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Forum.BL;
 using Forum.DAL;
 using Forum.Models;
 
@@ -54,8 +55,7 @@ namespace Forum.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.postDB.Add(post);
-                db.SaveChanges();
+                new PostBL().AddPost(post);
                 return RedirectToAction("Index");
             }
 

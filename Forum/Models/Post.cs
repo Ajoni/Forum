@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Forum.DAL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,7 +12,7 @@ namespace Forum.Models
     {
         public string Text { get; set; }
         [Display (Name = "OP" )]        
-        public DateTime Posted { get; private set; }
+        public DateTime? Posted { get; set; }
         [Key]
         public int id { get; set; }
 
@@ -26,12 +27,17 @@ namespace Forum.Models
         [ForeignKey("PosterId")]
         public virtual User user { get; set; }
 
-        private Post() { }
+        public Post() { }
         public Post(string text, int poster)
         {
             Text = text;
             PosterId = poster;
             Posted = DateTime.Now;
+        }
+
+        public User GetPoster(int id)
+        {
+            return new ForumContext().userDB.Find(id);
         }
     }
 }

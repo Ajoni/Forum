@@ -1,4 +1,4 @@
-﻿@model Forum.Models.Discussion
+﻿@model Forum.VM.DiscussionDetailsVM
 
 @{
     ViewBag.Title = "Details";
@@ -11,32 +11,34 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Posted)
-        </dt>
+            @Html.DisplayNameFor(model => model.discussion.Title)
 
         <dd>
-            @Html.DisplayFor(model => model.Posted)
+            @Html.DisplayFor(model => model.discussion.Title)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayFor(model => model.discussion.PosterName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Title)
+            @Html.DisplayFor(model => model.discussion.Text)
         </dd>
 
+        @foreach (var v in Model.posts)
+    {
         <dt>
-            @Html.DisplayNameFor(model => model.Text)
+            @Html.DisplayFor(model => v.GetPoster(v.id).username)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Text)
+            @Html.DisplayFor(x => v.Text)
         </dd>
+}
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.DiscussionId }) |
+    @Html.ActionLink("New Post", "Create", "Post") |
     @Html.ActionLink("Back to List", "Index")
 </p>

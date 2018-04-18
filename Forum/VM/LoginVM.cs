@@ -1,19 +1,16 @@
-﻿using System;
+﻿using Forum.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Web;
-using Forum.Properties;
 
-namespace Forum.Models
+namespace Forum.VM
 {
-    public class User
+    public class LoginVM
     {
-        [Key]
-        public int id { get; set; }
-        [Display(Name = "User")]
+        [Display(Name = "Username")]
         public string username { get; set; }
 
         private string _pass;
@@ -31,19 +28,6 @@ namespace Forum.Models
                     _pass = Convert.ToBase64String(hmac.ComputeHash(data));
                 }
             }
-        }
-
-        public string AboutMe { get; set; }
-
-        public DateTime? JoinedDate { get; set; }
-
-        public User() { }
-        public User(string name, string word, string aboutMe)
-        {
-            username = name;
-            pass = word;
-            AboutMe = aboutMe;
-            JoinedDate = DateTime.Now;
         }
     }
 }

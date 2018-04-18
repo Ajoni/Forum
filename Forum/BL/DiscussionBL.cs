@@ -17,6 +17,7 @@ namespace Forum.BL
 
         public void AddDiscussion(Discussion u)
         {
+            u.Posted = DateTime.Now;
             ForumContext db = new ForumContext();
             db.discussionDB.Add(u);
             db.SaveChanges();

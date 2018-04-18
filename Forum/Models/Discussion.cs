@@ -10,11 +10,13 @@ namespace Forum.Models
     {
         [Key]
         public int DiscussionId { get; set; }
-        public DateTime Posted { get; set; }
+        public DateTime? Posted { get; set; }        
         public string Title { get; set; }
+        [DataType(DataType.MultilineText)]
         public string Text { get; set; }
+        public string PosterName { get; set; }
 
-        public Discussion() { }
+        public Discussion() { PosterName = HttpContext.Current.User.Identity.Name; }
         public Discussion(string title, string text)
         {
             Title = title;

@@ -6,8 +6,10 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Forum.BL;
 using Forum.DAL;
 using Forum.Models;
+using Forum.VM;
 
 namespace Forum.Controllers
 {
@@ -22,6 +24,7 @@ namespace Forum.Controllers
         }
 
         // GET: Discussion/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -33,10 +36,11 @@ namespace Forum.Controllers
             {
                 return HttpNotFound();
             }
-            return View(discussion);
+            return View(new DiscussionDetailsVM(discussion));
         }
 
         // GET: Discussion/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -51,8 +55,7 @@ namespace Forum.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.discussionDB.Add(discussion);
-                db.SaveChanges();
+                new DiscussionBL().AddDiscussion(discussion);
                 return RedirectToAction("Index");
             }
 
@@ -60,6 +63,7 @@ namespace Forum.Controllers
         }
 
         // GET: Discussion/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -91,6 +95,7 @@ namespace Forum.Controllers
         }
 
         // GET: Discussion/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)

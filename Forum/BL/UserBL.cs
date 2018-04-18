@@ -17,6 +17,7 @@ namespace Forum.BL
 
         public void AddUser(User u)
         {
+            u.JoinedDate = DateTime.Now;
             ForumContext db = new ForumContext();
             db.userDB.Add(u);
             db.SaveChanges();
