@@ -28,7 +28,14 @@
         </div>
     </div>
     <div class="container body-content">
-        <div style="text-align:right">Użytkownik: @User.Identity.Name | @Html.ActionLink("Wyloguj", "Logout", "Login", null, null)</div>
+        @if (User.Identity.Name != "")
+    {
+        <div style="text-align:right">User: @User.Identity.Name | @Html.ActionLink("Logout", "Logout", "Login", null, null)</div>
+}
+else
+{
+    <div style="text-align:right">@Html.ActionLink("Login", "Login", "Login", null, null)</div>
+}
         @RenderBody()
         <hr />
         <footer>

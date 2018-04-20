@@ -36,6 +36,7 @@ namespace Forum.Controllers
             {
                 return HttpNotFound();
             }
+            Session["dId"] = id;
             return View(new DiscussionDetailsVM(discussion));
         }
 

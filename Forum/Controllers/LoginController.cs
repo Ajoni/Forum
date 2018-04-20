@@ -24,12 +24,20 @@ namespace Forum.Controllers
             if (loginBL.isValidUser(loginVM))
             {
                 FormsAuthentication.SetAuthCookie(loginVM.username, false);
+                if(ReturnUrl == null) return RedirectToAction("Index", "Discussion");
                 return Redirect(ReturnUrl);
             }
 
             ModelState.AddModelError("CreditentialError", "Creditential Error");
             return View("Login");
         }
+
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Discussion");
+        }
+
     }
 
 }

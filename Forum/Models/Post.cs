@@ -10,6 +10,8 @@ namespace Forum.Models
 {
     public class Post
     {
+        [Required(ErrorMessage = "Text is required.")]
+        [StringLength(500, ErrorMessage = "Post cannot be longer than 500 characters.")]
         public string Text { get; set; }
         [Display (Name = "OP" )]        
         public DateTime? Posted { get; set; }
@@ -37,7 +39,7 @@ namespace Forum.Models
 
         public User GetPoster(int id)
         {
-            return new ForumContext().userDB.Find(id);
+            return new ForumContext().userDB.Where(x => x.id == id).ToList().Single();
         }
     }
 }

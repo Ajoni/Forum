@@ -13,6 +13,8 @@ namespace Forum.Models
         public DateTime? Posted { get; set; }        
         public string Title { get; set; }
         [DataType(DataType.MultilineText)]
+        [Required(ErrorMessage = "Text is required.")]
+        [StringLength(500, ErrorMessage = "Post cannot be longer than 500 characters.")]
         public string Text { get; set; }
         public string PosterName { get; set; }
 

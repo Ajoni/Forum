@@ -14,11 +14,14 @@ namespace Forum.Models
         [Key]
         public int id { get; set; }
         [Display(Name = "User")]
+        [Required(ErrorMessage = "Username is required.")]
+        [StringLength(20, ErrorMessage = "Name cannot be longer than 20 characters.")]
         public string username { get; set; }
 
         private string _pass;
 
         [Display(Name = "Password")]
+        [Required(ErrorMessage = "Passord is required.")]
         public string pass
         {
             get { return _pass; }

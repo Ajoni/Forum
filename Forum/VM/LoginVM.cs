@@ -11,11 +11,13 @@ namespace Forum.VM
     public class LoginVM
     {
         [Display(Name = "Username")]
+        [Required(ErrorMessage = "Required.")]
         public string username { get; set; }
 
         private string _pass;
 
         [Display(Name = "Password")]
+        [Required(ErrorMessage = "Required.")]
         public string pass
         {
             get { return _pass; }

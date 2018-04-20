@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -12,6 +13,7 @@ using Forum.Models;
 
 namespace Forum.Controllers
 {
+    //mozna authorize tutaj dac
     public class PostController : Controller
     {
         private ForumContext db = new ForumContext();
@@ -39,6 +41,7 @@ namespace Forum.Controllers
         }
 
         // GET: Post/Create
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.DiscussionId = new SelectList(db.discussionDB, "DiscussionId", "Title");
@@ -55,8 +58,14 @@ namespace Forum.Controllers
         {
             if (ModelState.IsValid)
             {
+                post.DiscussionId =  (int)Session["dId"];
+                    var posterID = new ForumContext().userDB
+                    .Where(x => x.username == HttpContext.User.Identity.Name)
+                    .Select(a => new { a.id})
+                    .ToList().Single();                    
+                post.PosterId = posterID.id;
                 new PostBL().AddPost(post);
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Discussion", new { id = (int)Session["dId"] });
             }
 
             ViewBag.DiscussionId = new SelectList(db.discussionDB, "DiscussionId", "Title", post.DiscussionId);
@@ -65,6 +74,7 @@ namespace Forum.Controllers
         }
 
         // GET: Post/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -100,6 +110,7 @@ namespace Forum.Controllers
         }
 
         // GET: Post/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -122,7 +133,7 @@ namespace Forum.Controllers
             Post post = db.postDB.Find(id);
             db.postDB.Remove(post);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Discussion", new { id = (int)Session["dId"] });
         }
 
         protected override void Dispose(bool disposing)

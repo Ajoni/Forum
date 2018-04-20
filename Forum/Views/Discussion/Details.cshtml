@@ -27,13 +27,18 @@
 
         @foreach (var v in Model.posts)
     {
+        var username = v.GetPoster(v.PosterId).username;
         <dt>
-            @Html.DisplayFor(model => v.GetPoster(v.id).username)
+            @if (HttpContext.Current.User.Identity.Name == username)
+    {
+        @Html.ActionLink("[remove]", "Delete", "Post", new { id = v.id }, null)
+}
+            @Html.ActionLink(username, "Details", "User", new { id = v.PosterId }, null)
         </dt>
 
-        <dd>
-            @Html.DisplayFor(x => v.Text)
-        </dd>
+            <dd>
+                @Html.DisplayFor(x => v.Text)
+            </dd>
 }
 
     </dl>
