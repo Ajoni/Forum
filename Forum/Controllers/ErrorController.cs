@@ -11,6 +11,7 @@ namespace Forum.Controllers
         // GET: Error
         public ActionResult NotAuthorized()
         {
+            Response.StatusCode = 403;
             return View();
         }
     }

@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Forum.BL;
 using Forum.DAL;
-using Forum.ErrorHandling;
+using Forum.Authorize;
 using Forum.Models;
 
 namespace Forum.Controllers
@@ -17,7 +17,7 @@ namespace Forum.Controllers
     {
         private ForumContext db = new ForumContext();
 
-        [AccessDeniedAuthorizeAttribute(Users = "admin")]
+        [AccessDeniedAuthorize(Users = "admin")]
         public ActionResult Index()
         {
             return View(db.userDB.ToList());

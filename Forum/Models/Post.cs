@@ -18,15 +18,16 @@ namespace Forum.Models
         [Key]
         public int id { get; set; }
 
-        [Display(Name ="Discussion")]
         public int DiscussionId { get; set; }
         [Key]
         [ForeignKey("DiscussionId")]
+        [Display(Name ="Discussion")]
         public virtual Discussion Discussions { get; set; }
 
         public int PosterId { get; set; }
         [Key]
         [ForeignKey("PosterId")]
+        [Display(Name = "Poster")]
         public virtual User user { get; set; }
 
         public Post() { }

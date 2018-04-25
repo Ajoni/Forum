@@ -12,7 +12,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Discussions.Title)
+            @Html.DisplayNameFor(model => model.Discussions)
         </dt>
 
         <dd>
@@ -20,11 +20,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.user.username)
+            @Html.DisplayNameFor(model => model.user)            
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.user.username)
+            @Html.ActionLink(Model.user.username, "Details", "User", new { id = Model.PosterId }, null)            
         </dd>
 
         <dt>

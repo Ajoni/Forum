@@ -9,16 +9,16 @@ using System.Web;
 using System.Web.Mvc;
 using Forum.BL;
 using Forum.DAL;
+using Forum.Authorize;
 using Forum.Models;
 
 namespace Forum.Controllers
 {
-    //mozna authorize tutaj dac
     public class PostController : Controller
     {
         private ForumContext db = new ForumContext();
 
-        // GET: Post
+        [AccessDeniedAuthorize(Users = "admin")]
         public ActionResult Index()
         {
             var postDB = db.postDB.Include(p => p.Discussions).Include(p => p.user);

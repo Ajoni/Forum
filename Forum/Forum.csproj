@@ -159,7 +159,7 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\ForumContext.cs" />
     <Compile Include="DAL\ForumInitializer.cs" />
-    <Compile Include="ErrorHandling\AccessDeniedAuthorizeAttribute.cs" />
+    <Compile Include="Authorize\AccessDeniedAuthorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

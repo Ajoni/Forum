@@ -22,6 +22,7 @@ namespace Forum.Models
 
         [Display(Name = "Password")]
         [Required(ErrorMessage = "Passord is required.")]
+        [DataType(DataType.Password)]
         public string pass
         {
             get { return _pass; }
