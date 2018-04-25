@@ -153,12 +153,13 @@
     <Compile Include="BL\PostBL.cs" />
     <Compile Include="BL\UserBL.cs" />
     <Compile Include="Controllers\DiscussionController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\ForumContext.cs" />
     <Compile Include="DAL\ForumInitializer.cs" />
+    <Compile Include="ErrorHandling\AccessDeniedAuthorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -209,9 +210,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Discussion\Create.cshtml" />
     <Content Include="Views\Discussion\Delete.cshtml" />
     <Content Include="Views\Discussion\Details.cshtml" />
@@ -228,6 +226,7 @@
     <Content Include="Views\Post\Edit.cshtml" />
     <Content Include="Views\Post\Index.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Error\NotAuthorized.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

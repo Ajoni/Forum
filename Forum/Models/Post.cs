@@ -13,7 +13,7 @@ namespace Forum.Models
         [Required(ErrorMessage = "Text is required.")]
         [StringLength(500, ErrorMessage = "Post cannot be longer than 500 characters.")]
         public string Text { get; set; }
-        [Display (Name = "OP" )]        
+        [Display (Name = "Posted" )]        
         public DateTime? Posted { get; set; }
         [Key]
         public int id { get; set; }
@@ -30,12 +30,6 @@ namespace Forum.Models
         public virtual User user { get; set; }
 
         public Post() { }
-        public Post(string text, int poster)
-        {
-            Text = text;
-            PosterId = poster;
-            Posted = DateTime.Now;
-        }
 
         public User GetPoster(int id)
         {

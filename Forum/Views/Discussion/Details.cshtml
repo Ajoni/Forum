@@ -31,8 +31,8 @@
         <dt>
             @if (HttpContext.Current.User.Identity.Name == username)
     {
-        @Html.ActionLink("[remove]", "Delete", "Post", new { id = v.id }, null)
-}
+                <a href="@Url.Action("Delete", "Post", new { id = v.id }, null)" class="glyphicon glyphicon-trash navbar-left"></a>
+    }
             @Html.ActionLink(username, "Details", "User", new { id = v.PosterId }, null)
         </dt>
 
