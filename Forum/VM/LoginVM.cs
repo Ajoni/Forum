@@ -18,6 +18,7 @@ namespace Forum.VM
 
         [Display(Name = "Password")]
         [Required(ErrorMessage = "Required.")]
+        [DataType(DataType.Password)]
         public string pass
         {
             get { return _pass; }

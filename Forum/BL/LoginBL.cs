@@ -32,7 +32,7 @@ namespace Forum.BL
                     return true;
                 }
             }
-
+            HttpContext.Current.Session["uId"] = null;
             return false;
         }
     }

@@ -22,7 +22,7 @@ namespace Forum.Controllers
         {
             LoginBL loginBL = new LoginBL();
             if (loginBL.isValidUser(loginVM))
-            {
+            {             
                 FormsAuthentication.SetAuthCookie(loginVM.username, false);
                 if(ReturnUrl == null) return RedirectToAction("Index", "Discussion");
                 return Redirect(ReturnUrl);

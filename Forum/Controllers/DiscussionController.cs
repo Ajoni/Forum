@@ -53,10 +53,15 @@ namespace Forum.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DiscussionId,Posted,Title,Text")] Discussion discussion)
+        public ActionResult Create([Bind(Include = "DiscussionId,Posted,Title,Text,PosterId")] Discussion discussion)
         {
             if (ModelState.IsValid)
             {
+                var posterID = new ForumContext().userDB
+                    .Where(x => x.username == HttpContext.User.Identity.Name)
+                    .Select(a => new { a.id })
+                    .ToList().Single();
+                discussion.PosterId = posterID.id;
                 new DiscussionBL().AddDiscussion(discussion);
                 return RedirectToAction("Index", "Discussion");
             }
@@ -85,7 +90,7 @@ namespace Forum.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DiscussionId,Posted,Title,Text")] Discussion discussion)
+        public ActionResult Edit([Bind(Include = "DiscussionId,Posted,Title,Text,PosterId")] Discussion discussion)
         {
             if (ModelState.IsValid)
             {
