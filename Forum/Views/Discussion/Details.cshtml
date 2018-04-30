@@ -18,7 +18,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayFor(model => model.discussion.PosterName)
+            @Html.ActionLink(Model.discussion.user.username + ": ", "Details", "User", new { id = Model.discussion.PosterId}, null)
         </dt>
 
         <dd>
@@ -26,14 +26,14 @@
         </dd>
 
         @foreach (var v in Model.posts)
-    {
-        var username = v.GetPoster(v.PosterId).username;
+        {
+            
         <dt>
-            @if (HttpContext.Current.User.Identity.Name == username)
-    {
+            @if (Model.name == v.user.username || Model.isAdmin)
+             {
                 <a href="@Url.Action("Delete", "Post", new { id = v.id }, null)" class="glyphicon glyphicon-trash navbar-left"></a>
-    }
-            @Html.ActionLink(username, "Details", "User", new { id = v.PosterId }, null)
+             }
+            @Html.ActionLink(v.user.username+": ", "Details", "User", new { id = v.PosterId }, null)
         </dt>
 
             <dd>

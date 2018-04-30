@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -16,9 +17,13 @@ namespace Forum.Models
         [Required(ErrorMessage = "Text is required.")]
         [StringLength(500, ErrorMessage = "Post cannot be longer than 500 characters.")]
         public string Text { get; set; }
-        public string PosterName { get; set; }
+        public int PosterId { get; set; }
+        [Key]
+        [ForeignKey("PosterId")]
+        [Display(Name = "Poster")]
+        public virtual User user { get; set; }
 
-        public Discussion() { PosterName = HttpContext.Current.User.Identity.Name; }
+        public Discussion() {  }
         public Discussion(string title, string text)
         {
             Title = title;

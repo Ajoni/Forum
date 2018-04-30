@@ -7,7 +7,7 @@ using System.Web.Routing;
 
 namespace Forum.Authorize
 {
-    public class AccessDeniedAuthorizeAttribute : AuthorizeAttribute
+    public class AdminAuthorizeAttribute : AuthorizeAttribute
     {
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {

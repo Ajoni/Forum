@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Forum.Authorize;
 using Forum.BL;
 using Forum.DAL;
 using Forum.Models;
@@ -57,14 +58,14 @@ namespace Forum.Controllers
             if (ModelState.IsValid)
             {
                 new DiscussionBL().AddDiscussion(discussion);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Discussion");
             }
 
             return View(discussion);
         }
 
         // GET: Discussion/Edit/5
-        [Authorize]
+        [AdminAuthorize(Users = "admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -90,13 +91,13 @@ namespace Forum.Controllers
             {
                 db.Entry(discussion).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Discussion");
             }
             return View(discussion);
         }
 
         // GET: Discussion/Delete/5
-        [Authorize]
+        [AdminAuthorize(Users = "admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -119,7 +120,7 @@ namespace Forum.Controllers
             Discussion discussion = db.discussionDB.Find(id);
             db.discussionDB.Remove(discussion);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Discussion");
         }
 
         protected override void Dispose(bool disposing)

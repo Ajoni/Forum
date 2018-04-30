@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -13,6 +14,9 @@ namespace Forum.Models
     {
         [Key]
         public int id { get; set; }
+
+        public bool isAdmin { get; set; } = false;
+
         [Display(Name = "User")]
         [Required(ErrorMessage = "Username is required.")]
         [StringLength(20, ErrorMessage = "Name cannot be longer than 20 characters.")]

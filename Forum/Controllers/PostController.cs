@@ -18,7 +18,7 @@ namespace Forum.Controllers
     {
         private ForumContext db = new ForumContext();
 
-        [AccessDeniedAuthorize(Users = "admin")]
+        [AdminAuthorize(Users = "admin")]
         public ActionResult Index()
         {
             var postDB = db.postDB.Include(p => p.Discussions).Include(p => p.user);
@@ -74,7 +74,7 @@ namespace Forum.Controllers
         }
 
         // GET: Post/Edit/5
-        [Authorize]
+        [AdminAuthorize(Users = "admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -86,6 +86,7 @@ namespace Forum.Controllers
             {
                 return HttpNotFound();
             }
+
             ViewBag.DiscussionId = new SelectList(db.discussionDB, "DiscussionId", "Title", post.DiscussionId);
             ViewBag.PosterId = new SelectList(db.userDB, "id", "username", post.PosterId);
             return View(post);
@@ -102,7 +103,7 @@ namespace Forum.Controllers
             {
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Discussion");
             }
             ViewBag.DiscussionId = new SelectList(db.discussionDB, "DiscussionId", "Title", post.DiscussionId);
             ViewBag.PosterId = new SelectList(db.userDB, "id", "username", post.PosterId);
@@ -122,7 +123,12 @@ namespace Forum.Controllers
             {
                 return HttpNotFound();
             }
-            return View(post);
+            if (Helper.Helper.checkPermission(post.PosterId))
+            {
+                return View(post);
+            }
+            else
+                return RedirectToAction("NotAuthorized", "Error");
         }
 
         // POST: Post/Delete/5

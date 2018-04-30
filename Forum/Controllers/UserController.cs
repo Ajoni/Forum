@@ -10,6 +10,7 @@ using Forum.BL;
 using Forum.DAL;
 using Forum.Authorize;
 using Forum.Models;
+using Forum.Helper;
 
 namespace Forum.Controllers
 {
@@ -17,7 +18,7 @@ namespace Forum.Controllers
     {
         private ForumContext db = new ForumContext();
 
-        [AccessDeniedAuthorize(Users = "admin")]
+        [AdminAuthorize(Users = "admin")]
         public ActionResult Index()
         {
             return View(db.userDB.ToList());
@@ -51,12 +52,12 @@ namespace Forum.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,username,pass,AboutMe,JoinedDate")] User user)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && Helper.Helper.uniqueUsername(user.username))
             {
                 new UserBL().AddUser(user);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Discussion");
             }
-
+            ViewBag.Error = "Username taken";
             return View(user);
         }
 
@@ -72,7 +73,10 @@ namespace Forum.Controllers
             {
                 return HttpNotFound();
             }
-            return View(user);
+            if (Helper.Helper.checkPermission(user.id))
+                return View(user);
+            else
+                return RedirectToAction("NotAuthorized", "Error");
         }
 
         // POST: User/Edit/5
@@ -86,12 +90,12 @@ namespace Forum.Controllers
             {
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Discussion");
             }
             return View(user);
         }
 
-        // GET: User/Delete/5
+        [AdminAuthorize(Users = "admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
