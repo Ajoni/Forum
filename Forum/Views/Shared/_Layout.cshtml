@@ -24,8 +24,10 @@
                     @if(User.Identity.Name!="")
                     {
                     <li>@Html.ActionLink("Logout", "Logout", "Login")</li>
+                        //<li class="text-info">@Html.ActionLink(@User.Identity.Name, "Details", "User", new { id = new ForumContext().db }, new { @class = "navbar-brand" })</li>
+                    <li class="text-info">@User.Identity.Name</li>
                     }else
-                    {
+                    {@HttpContext.Current.User.Identity.GetUserId();
                         <li>@Html.ActionLink("Login", "Login", "Login")</li>
                     }
                 </ul>

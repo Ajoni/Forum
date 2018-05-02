@@ -20,7 +20,7 @@ namespace Forum.Controllers
         [HttpPost]
         public ActionResult Login(LoginVM loginVM, string ReturnUrl)
         {
-            LoginBL loginBL = new LoginBL();
+            LoginBL loginBL = new LoginBL(); 
             if (loginBL.isValidUser(loginVM))
             {             
                 FormsAuthentication.SetAuthCookie(loginVM.username, false);

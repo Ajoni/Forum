@@ -22,7 +22,7 @@ namespace Forum.Helper
         public static bool checkPermission(int id)
         {
             ForumContext db = new ForumContext();
-            string name = HttpContext.Current.User.Identity.Name;
+            string name = HttpContext.Current.User.Identity.Name; System.Web.HttpContext.Current.User.Identity.GetUserId();
             var r = db.userDB.Where(d => d.username == name).ToList().First(); //guaranteed to be unique -> one record returned
             if(r.id == id || r.isAdmin)
             {

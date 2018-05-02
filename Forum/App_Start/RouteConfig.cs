@@ -14,7 +14,7 @@ namespace Forum
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Default",
+                name: "MyPlentyCustomRouting_:)",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Discussion", action = "Index", id = UrlParameter.Optional }
             );
