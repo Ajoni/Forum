@@ -7,6 +7,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/Styles/style.css")
+    @using Forum.DAL
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -24,10 +25,11 @@
                     @if(User.Identity.Name!="")
                     {
                     <li>@Html.ActionLink("Logout", "Logout", "Login")</li>
-                        //<li class="text-info">@Html.ActionLink(@User.Identity.Name, "Details", "User", new { id = new ForumContext().db }, new { @class = "navbar-brand" })</li>
-                    <li class="text-info">@User.Identity.Name</li>
+                        <li class="text-info">@Html.ActionLink(@User.Identity.Name, "Details", "User", new
+                                         { id = new ForumContext().userDB.Where(x => x.username == User.Identity.Name).First().id },
+                                         new { @class = "navbar-brand" })</li>                    
                     }else
-                    {@HttpContext.Current.User.Identity.GetUserId();
+                    {
                         <li>@Html.ActionLink("Login", "Login", "Login")</li>
                     }
                 </ul>
